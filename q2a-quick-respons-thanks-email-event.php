@@ -18,19 +18,12 @@ class q2a_quick_respons_thanks_email_event
 		foreach($posts as $post){
 			$quickflag = $post["quickflag"];
 		}
-$fp = fopen("/tmp/plugin02.log", "a+");
-$outs = "--------------------------\n";
-$outs .= "postid[" . $params['postid'] . "] userid[" . $userid . "]\n";
-$outs .= "quickflag:".$quickflag."\n";
-fputs($fp, $outs);
-fclose($fp);
 
 		if ($quickflag == 1) {
 			$user = $this->getUserInfo($userid);
 			$handle = $user[0]['handle'];
 			$email = $user[0]['email'];
 			$title = "素早い回答ありがとうございます。";
-/*************
 			$bodyTemplate = qa_opt('q2a-quick-thanks-body');
 			$body = strtr($bodyTemplate, 
 				array(
@@ -38,8 +31,6 @@ fclose($fp);
 					'^sitename' => qa_opt('site_title')
 				)
 			);
-**************/
-$body = "本文です。素早い回答をしていただき感謝しております。";
 			$this->sendEmail($title, $body, $handle, $email);
 		}
 		return;
@@ -55,25 +46,10 @@ $body = "本文です。素早い回答をしていただき感謝しており�
 		$params['toname'] = $toname;
 		$params['toemail'] = $toemail;
 		$params['html'] = false;
-$fp = fopen("/tmp/plugin02.log", "a+");
-$outs = $params['fromemail']."\n";
-fputs($fp, $outs);
-$outs = $params['fromname'] . "\n";
-fputs($fp, $outs);
-$outs = $params['subject'] . "\n";
-fputs($fp, $outs);
-$outs = $params['body'] . "\n";
-fputs($fp, $outs);
-$outs = $params['toname'] . "\n";
-fputs($fp, $outs);
-$outs = $params['toemail'] . "\n";
-fputs($fp, $outs);
-fclose($fp);
 
-		qa_send_email($params);
+//		qa_send_email($params);
 
-		//$params['toemail'] = 'yuichi.shiga@gmail.com';
-		$params['toemail'] = 'ryuta9.takeyama6@gmail.com';
+		$params['toemail'] = 'yuichi.shiga@gmail.com';
 		qa_send_email($params);
 	}
 
