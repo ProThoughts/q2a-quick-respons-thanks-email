@@ -11,7 +11,7 @@ class q2a_quick_respons_thanks_email_event
 		if ($event != 'a_post')
 			return;
 
-		$LIMIT = '01:00:00';	// 閾値：時間
+		$LIMIT = '03:00:00';	// 閾値：時間
 
 		$quickflag = 0;
 		$posts = $this->getQuickResposFlag($params['postid'], $LIMIT);
@@ -28,7 +28,8 @@ class q2a_quick_respons_thanks_email_event
 			$body = strtr($bodyTemplate, 
 				array(
 					'^username' => $handle,
-					'^sitename' => qa_opt('site_title')
+					'^sitename' => qa_opt('site_title'),
+					'^siteurl' => qa_opt('site_url'),
 				)
 			);
 			$this->sendEmail($title, $body, $handle, $email);
@@ -47,7 +48,7 @@ class q2a_quick_respons_thanks_email_event
 		$params['toemail'] = $toemail;
 		$params['html'] = false;
 
-//		qa_send_email($params);
+		qa_send_email($params);
 
 		$params['toemail'] = 'yuichi.shiga@gmail.com';
 		qa_send_email($params);
